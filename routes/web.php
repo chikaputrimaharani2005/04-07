@@ -23,9 +23,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
-        "nama" => "ini saya",
-        "email" => "hjhjhjhj@gmail.com",
-        "gambar" => "Ini saya.png"
+        "nama" => "Chika Putri Maharani",
+        "email" => "Chikaputri@gmail.com",
+        "gambar" => "chika.jpeg"
     ]);
 });
 
