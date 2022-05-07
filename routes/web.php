@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home', [
-        "title" => "Home"
+    return view('index', [
+        "title" => "Beranda"
     ]);
 
 });
@@ -36,4 +37,20 @@ Route::get('/gallery', function () {
     ]);
 });
 
+Route::get('/home', function(){
+    return view('admin.home', [
+        "title" => "Home"
+    ]);
+});
 Route::resource('/contacts', ContactController::class);
+Route::get('/contacts', ContactController::class . '@index');
+
+Auth::routes();
+
+Route::get('/delete_contact/{id}', ContactController::class . '@destroy');
+Route::get('/edit_contact/{id}', ContactController::class . '@edit');
+Route::post('/update_contact', ContactController::class . '@update');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});

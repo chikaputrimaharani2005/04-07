@@ -63,7 +63,11 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contact = Contact::where('id',$id)->get();
+
+        return view('admin.edit',[
+            'contact' => $contact
+        ]);
     }
 
     /**
@@ -73,9 +77,15 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Contact::where('id',$request->id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'pesan' => $request->pesan
+        ]);
+
+        return redirect('home');
     }
 
     /**
@@ -86,6 +96,8 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Contact::where('id',$id)->delete();
+
+        return redirect()->back();
     }
 }
